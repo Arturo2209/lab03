@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Vehículo</title>
+</head>
+<body>
+    <h1>Registrar Vehículo</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="propietario">Propietario:</label>
+        <select id="propietario" name="propietario">
+            {% for propietario in propietarios %}
+                <option value="{{ propietario.id }}">{{ propietario.nombre }} - {{ propietario.numero_apartamento }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" name="matricula" required><br>
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required><br>
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required><br>
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" required><br><br>
+        <button type="submit">Registrar</button>
+    </form><br>
+    <a href="{% url 'index' %}">Volver</a>
+</body>
+</html>

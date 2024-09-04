@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Ingreso/Salida</title>
+</head>
+<body>
+    <h1>Registrar Ingreso/Salida</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="propietario">Propietario:</label>
+        <select id="propietario" name="propietario" onchange="cargarVehiculos()">
+            <option value="">Selecciona un propietario</option>
+            {% for propietario in propietarios %}
+                <option value="{{ propietario.id }}">{{ propietario.nombre }} </option>
+            {% endfor %}
+        </select><br>
+
+        <label for="vehiculo">Vehículo:</label>
+        <select id="vehiculo" name="vehiculo">
+            <!-- Opciones se llenarán dinámicamente con JavaScript -->
+        </select><br>
+
+        <label for="fecha_hora_entrada">Fecha y Hora de Entrada:</label>
+        <input type="datetime-local" id="fecha_hora_entrada" name="fecha_hora_entrada"><br>
+        <label for="fecha_hora_salida">Fecha y Hora de Salida:</label>
+        <input type="datetime-local" id="fecha_hora_salida" name="fecha_hora_salida"><br><br>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <script>
+        function cargarVehiculos() {
+            var propietarioId = document.getElementById('propietario').value;
+            var vehiculoSelect = document.getElementById('vehiculo');
+            vehiculoSelect.innerHTML = ''; // Limpiar opciones anteriores
+
+            if (propietarioId) {
+                fetch(`/vehiculos/${propietarioId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.vehiculos.forEach(vehiculo => {
+                            var option = document.createElement('option');
+                            option.value = vehiculo.id;
+                            option.text = `${vehiculo.marca} ${vehiculo.modelo} - ${vehiculo.matricula}`;
+                            vehiculoSelect.add(option);
+                        });
+                    });
+            }
+        }
+    </script><br>
+    
+    <a href="{% url 'index' %}">Volver</a>
+</body>
+</html>

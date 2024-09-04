@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registros de Ingreso/Salida</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Registros de Ingreso/Salida</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Propietario</th>
+                <th>Fecha y Hora de Entrada</th>
+                <th>Fecha y Hora de Salida</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in registros %}
+                <tr>
+                    <td>{{ registro.vehiculo.matricula }}</td>
+                    <td>{{ registro.vehiculo.propietario.nombre }}</td>
+                    <td>{{ registro.fecha_hora_entrada }}</td>
+                    <td>{{ registro.fecha_hora_salida }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No hay registros disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table><br>
+    <a href="{% url 'index' %}">Volver</a>
+</body>
+</html>

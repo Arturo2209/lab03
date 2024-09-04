@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Vehículos</title>
+</head>
+<body>
+    <h1>Propietarios</h1>
+    <ul>
+        {% for propietario in propietarios %}
+            <li>
+                <a href="{% url 'propietario_detalle' propietario.id %}">
+                    {{ propietario.nombre }} - Apto. {{ propietario.numero_apartamento }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'registrar_propietario' %}">Registrar Propietario</a><br>
+    <a href="{% url 'registrar_vehiculo' %}">Registrar Vehículo</a><br>
+    <a href="{% url 'mostrar_registros' %}">Ver Registros de Ingreso/Salida</a><br>
+    <a href="{% url 'registrar_registro' %}">Registrar Ingreso/Salida</a>
+    
+</body>
+</html>
