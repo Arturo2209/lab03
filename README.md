@@ -1,4 +1,6 @@
 <h1>Pasos para la ejecución<h1>
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
+<ul>
+  <li>python manage.py makemigrations</li>
+  <li>python manage.py migrate</li>
+  <li>python manage.py runserver</li>
+</ul>
